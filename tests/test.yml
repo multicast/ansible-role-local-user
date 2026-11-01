@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: 2026 Matej Kovac
+# SPDX-License-Identifier: MIT
+
+---
+- name: Smoke test user role
+  hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - role: local_user
+      vars:
+        local_user_name: testuser
+        local_user_group: testuser
+        local_user_subuid_count: 65536
+        local_user_subgid_count: 65536
+  post_tasks:
+    - name: Remove test user
+      ansible.builtin.include_role:
+        name: local_user
+      vars:
+        local_user_name: testuser
+        local_user_group: testuser
+        local_user_state: absent
+        local_user_remove: true

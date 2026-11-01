@@ -1,0 +1,87 @@
+# SPDX-FileCopyrightText: 2026 Matej Kovac
+# SPDX-License-Identifier: MIT
+
+---
+argument_specs:
+  main:
+    short_description: Manage a single local user account.
+    options:
+      local_user_state:
+        type: str
+        choices: [present, absent]
+        default: present
+      local_user_name:
+        type: str
+        required: true
+      local_user_group:
+        type: str
+        default: users
+      local_user_groups:
+        type: list
+        elements: str
+        default: []
+      local_user_groups_append:
+        type: bool
+        default: false
+      local_user_comment:
+        type: str
+        default: "ansible managed user"
+      local_user_home:
+        type: str
+      local_user_create_home:
+        type: bool
+        default: true
+      local_user_move_home:
+        type: bool
+        default: false
+      local_user_shell:
+        type: str
+        default: /bin/bash
+      local_user_uid:
+        type: int
+      local_user_uid_min:
+        type: int
+      local_user_uid_max:
+        type: int
+      local_user_non_unique:
+        type: bool
+        default: false
+      local_user_password:
+        type: str
+        no_log: true
+      local_user_update_password:
+        type: str
+        choices: [always, on_create]
+        default: always
+      local_user_password_lock:
+        type: bool
+      local_user_password_expire_min:
+        type: int
+      local_user_password_expire_max:
+        type: int
+      local_user_password_expire_warn:
+        type: int
+      local_user_password_expire_account_disable:
+        type: bool
+      local_user_expires:
+        type: int
+      local_user_force:
+        type: bool
+        default: false
+      local_user_remove:
+        type: bool
+        default: false
+      local_user_profile:
+        type: str
+      local_user_role:
+        type: str
+      local_user_seuser:
+        type: str
+      local_user_skeleton:
+        type: str
+      local_user_umask:
+        type: str
+      local_user_subuid_count:
+        type: int
+      local_user_subgid_count:
+        type: int

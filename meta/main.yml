@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: 2026 Matej Kovac
+# SPDX-License-Identifier: MIT
+
+---
+galaxy_info:
+  namespace: multicast
+  role_name: local_user
+  author: Matej Kovac
+  description: Manage a single local user account, including optional subordinate UID/GID ranges
+  company: ""
+  license: MIT
+  min_ansible_version: "2.15"
+  platforms:
+    - name: GenericLinux
+      versions:
+        - "all"
+  galaxy_tags:
+    - user
+    - account
+    - subuid
+    - subgid
+
+dependencies: []

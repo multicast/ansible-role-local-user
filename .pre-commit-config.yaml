@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ansible-lint
+        name: ansible-lint
+        entry: /usr/bin/ansible-lint
+        language: system
+        pass_filenames: false

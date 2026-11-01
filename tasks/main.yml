@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: 2026 Matej Kovac
+# SPDX-License-Identifier: MIT
+
+---
+# Main tasks for user management
+
+- name: Remove user
+  ansible.builtin.include_tasks: local_user_absent.yml
+  when: local_user_state == "absent"
+
+- name: Add or update user
+  ansible.builtin.include_tasks: local_user_present.yml
+  when: local_user_state == "present"

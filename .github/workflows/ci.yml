@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: 2026 Matej Kovac
+# SPDX-License-Identifier: MIT
+
+---
+name: CI
+on: [push, pull_request]
+jobs:
+  lint:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - run: pip install ansible ansible-lint
+      - run: ansible-lint
+  syntax:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - run: pip install ansible
+      - run: ansible-playbook tests/test.yml --syntax-check

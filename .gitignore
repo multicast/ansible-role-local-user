@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2026 Matej Kovac
+# SPDX-License-Identifier: MIT
+
+*.retry
+*.pyc
+__pycache__/
+.tox/
+.molecule/
+.cache/
+.ansible/

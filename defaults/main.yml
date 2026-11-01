@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2026 Matej Kovac
+# SPDX-License-Identifier: MIT
+
+---
+
+local_user_state: "present"
+local_user_comment: "ansible managed user"
+local_user_create_home: true
+local_user_force: false
+local_user_group: "users"
+local_user_groups: []
+local_user_groups_append: false
+local_user_move_home: false
+local_user_non_unique: false
+local_user_remove: false
+local_user_shell: "/bin/bash"
+# local_user_subuid_count: 65536
+# local_user_subgid_count: 65536

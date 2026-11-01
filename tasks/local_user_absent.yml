@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: 2026 Matej Kovac
+# SPDX-License-Identifier: MIT
+
+---
+- name: Remove user
+  ansible.builtin.user:
+    state: absent
+    name: "{{ local_user_name }}"
+    force: "{{ local_user_force | default(false) }}"
+    remove: "{{ local_user_remove | default(false) }}"
+
+- name: Clean up /etc/subuid
+  ansible.builtin.lineinfile:
+    path: /etc/subuid
+    state: absent
+    regexp: "^{{ local_user_name }}:"
+    backup: false
+
+- name: Clean up /etc/subgid
+  ansible.builtin.lineinfile:
+    path: /etc/subgid
+    state: absent
+    regexp: "^{{ local_user_name }}:"
+    backup: false
+
+- name: Remove primary group if empty
+  ansible.builtin.group:
+    name: "{{ local_user_group }}"
+    state: absent
+  failed_when: false

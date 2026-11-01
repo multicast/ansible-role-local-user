@@ -1,0 +1,57 @@
+# SPDX-FileCopyrightText: 2026 Matej Kovac
+# SPDX-License-Identifier: MIT
+
+---
+# User creation and management tasks
+
+- name: Ensure primary group exists
+  ansible.builtin.group:
+    name: "{{ local_user_group }}"
+    state: present
+
+- name: Validate user UID ranges
+  ansible.builtin.user:
+    state: present
+    name: "{{ local_user_name }}"
+    comment: "{{ local_user_comment }}"
+    create_home: "{{ local_user_create_home }}"
+    expires: "{{ local_user_expires | default(omit) }}"
+    force: "{{ local_user_force }}"
+    append: "{{ local_user_groups_append }}"
+    group: "{{ local_user_group }}"
+    groups: "{{ local_user_groups | default([]) | unique | sort }}"
+    home: "{{ local_user_home | default(omit) }}"
+    move_home: "{{ local_user_move_home }}"
+    non_unique: "{{ local_user_non_unique }}"
+    password_expire_account_disable: "{{ local_user_password_expire_account_disable | default(omit) }}"
+    password_expire_max: "{{ local_user_password_expire_max | default(omit) }}"
+    password_expire_min: "{{ local_user_password_expire_min | default(omit) }}"
+    password_expire_warn: "{{ local_user_password_expire_warn | default(omit) }}"
+    password_lock: "{{ local_user_password_lock | default(omit) }}"
+    password: "{{ local_user_password | default(omit) }}"
+    profile: "{{ local_user_profile | default(omit) }}"
+    remove: "{{ local_user_remove | default(false) }}"
+    role: "{{ local_user_role | default(omit) }}"
+    seuser: "{{ local_user_seuser | default(omit) }}"
+    shell: "{{ local_user_shell }}"
+    skeleton: "{{ local_user_skeleton | default(omit) }}"
+    ssh_key_bits: "{{ local_user_ssh_key_bits | default(omit) }}"
+    ssh_key_comment: "{{ local_user_ssh_key_comment | default('ansible-generated on $HOSTNAME') }}"
+
+    uid_max: "{{ local_user_uid_max | default(omit) }}"
+    uid_min: "{{ local_user_uid_min | default(omit) }}"
+    uid: "{{ local_user_uid | default(omit) }}"
+    umask: "{{ local_user_umask | default(omit) }}"
+    update_password: "{{ local_user_update_password | default('always') }}"
+
+- name: Allocate subuid/subgid ranges
+  when: local_user_subuid_count is defined or local_user_subgid_count is defined
+  ansible.builtin.script:
+    cmd: >-
+      {{ (role_path ~ '/files/allocate-subids.py') | quote }}
+      {{ local_user_name | quote }}
+      {{ local_user_subuid_count | default('') | quote }}
+      {{ local_user_subgid_count | default('') | quote }}
+    executable: python3
+  register: local_user_subid_allocation
+  changed_when: local_user_subid_allocation.stdout | trim == 'changed'
