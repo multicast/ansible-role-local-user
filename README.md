@@ -102,8 +102,11 @@ And run:
 
 ```bash
 ansible-galaxy role install -r requirements.yml --verbose --verbose
+```
 
-# alternatively without the file:
+Alternatively without the file:
+
+```bash
 ansible-galaxy role install git+https://github.com/multicast/ansible-role-local-user.git
 mv roles/ansible-role-local-user roles/local_user
 ```
