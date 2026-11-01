@@ -89,19 +89,23 @@ None (uses `ansible.builtin.user`, `ansible.builtin.group`, `ansible.builtin.scr
 
 ## Installation
 
-From GitHub (no Galaxy account needed):
-
-```bash
-ansible-galaxy role install git+https://github.com/multicast/ansible-role-local-user.git
-```
-
-Or add to `requirements.yml`:
+No Galaxy account needed. Add to `requirements.yml`:
 
 ```yaml
 roles:
   - name: local_user
     src: https://github.com/multicast/ansible-role-local-user.git
     version: master
+```
+
+And run:
+
+```bash
+ansible-galaxy role install -r requirements.yml --verbose --verbose
+
+# alternatively without the file:
+ansible-galaxy role install git+https://github.com/multicast/ansible-role-local-user.git
+mv roles/ansible-role-local-user roles/local_user
 ```
 
 ## Requirements
